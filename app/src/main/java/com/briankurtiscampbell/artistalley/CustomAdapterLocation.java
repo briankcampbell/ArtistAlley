@@ -55,8 +55,12 @@ public class CustomAdapterLocation extends ArrayAdapter<Location> {
 
     static class LocationHolder
     {
+        TextView textEntryLocationId;
         TextView textEntryLocationName;
-
+        TextView textEntryLocationAddress;
+        TextView textEntryLocationCity;
+        TextView textEntryLocationState;
+        TextView textEntryLocationZip;
     }
 
 }

@@ -51,10 +51,11 @@ public class CustomAdapterArtist extends ArrayAdapter<Artist> {
 
         final Artist artist = artists.get(position);
 
-        String strPhone = String.valueOf(artist.getPhone());
-
+        holder.textEntryArtistId.setText(artist.getId());
         holder.textEntryArtistName.setText(artist.getName());
-        holder.textEntryArtistPhone.setText(strPhone);
+        holder.textEntryArtistPhone.setText(artist.getPhone());
+        holder.textEntryArtistEmail.setText(artist.getEmail());
+        holder.textEntryArtistPassword.setText(artist.getPassword());
 /*
         //setOnclickListeners
         final MyDatabaseHelper myHelper = new MyDatabaseHelper(context);
@@ -108,9 +109,11 @@ public class CustomAdapterArtist extends ArrayAdapter<Artist> {
 
     static class LocationHolder
     {
+        TextView textEntryArtistId;
         TextView textEntryArtistName;
         TextView textEntryArtistPhone;
-
+        TextView textEntryArtistEmail;
+        TextView textEntryArtistPassword;
     }
 
 }

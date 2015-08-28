@@ -57,14 +57,11 @@ public class CustomAdapterItem extends ArrayAdapter<Item> {
     static class ItemHolder
     {
         TextView textEntryItemName;
+        TextView textEntryItemDesc;
+        View imgEntryItemImage;
+        TextView textEntryItemSize;
         TextView textEntryItemPrice;
         TextView textEntryItemCount;
-
-        View imgEntryLocationImage;
-        TextView textEntryLocationName;
-
-        TextView textEntryItemVendorName;
-        TextView textEntryItemVendorPhone;
     }
 
 }
