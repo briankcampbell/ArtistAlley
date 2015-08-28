@@ -22,7 +22,7 @@ public class CustomObject {
     public String entryLocationState;
     public int entryLocationZip;
     public String entryLocationPhone;
-    public Artist artist;
+    public Artist entryArtist;
     public int entryArtistId;
     public String entryArtistName;
     public String entryArtistPhone;
@@ -60,14 +60,14 @@ public class CustomObject {
     }
 
     //Location CustomObject Constructor
-    public CustomObject(String name, String address, String city, String state, int zip, String phone, int artistId){
+    public CustomObject(String name, String address, String city, String state, int zip, String phone, Artist artist){
         this.entryLocationName = name;
         this.entryLocationAddress = address;
         this.entryLocationCity = city;
         this.entryLocationState = state;
         this.entryLocationZip = zip;
         this.entryLocationPhone = phone;
-        this.entryArtistId = artistId;
+        this.entryArtist = artist;
     }
 }
 
