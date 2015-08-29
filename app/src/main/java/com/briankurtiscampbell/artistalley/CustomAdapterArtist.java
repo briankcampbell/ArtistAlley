@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Biarre on 7/10/2015.
- */
 public class CustomAdapterArtist extends ArrayAdapter<Artist> {
     Context context;
     int layoutResourceId;
@@ -31,7 +28,7 @@ public class CustomAdapterArtist extends ArrayAdapter<Artist> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         View row = convertView;
-        LocationHolder holder = null;
+        LocationHolder holder;
 
         if(row == null)
         {
@@ -39,8 +36,10 @@ public class CustomAdapterArtist extends ArrayAdapter<Artist> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new LocationHolder();
-            //holder.textEntryArtistName = (TextView)row.findViewById(R.id.artistName);
-            //holder.textEntryArtistPhone = (TextView)row.findViewById(R.id.artistPhone);
+            holder.textEntryArtistName = (TextView)row.findViewById(R.id.lraArtistName);
+            holder.textEntryArtistPhone = (TextView)row.findViewById(R.id.lraArtistPhone);
+            holder.textEntryArtistEmail = (TextView)row.findViewById(R.id.lraArtistEmail);
+            holder.textEntryArtistPassword = (TextView)row.findViewById(R.id.lraArtistPassword);
 
             row.setTag(holder);
         }

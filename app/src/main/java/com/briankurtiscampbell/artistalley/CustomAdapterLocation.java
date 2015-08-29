@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Biarre on 7/10/2015.
- */
 public class CustomAdapterLocation extends ArrayAdapter<Location> {
     Context context;
     int layoutResourceId;
@@ -36,8 +33,13 @@ public class CustomAdapterLocation extends ArrayAdapter<Location> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new LocationHolder();
-            //holder.imgEntryLocationImage = row.findViewById(R.id.llrLocationImage);
-            //holder.textEntryLocationName = (TextView)row.findViewById(R.id.llrLocationName);
+            holder.textEntryLocationId = (TextView) row.findViewById(R.id.lrlLocationId);
+            holder.textEntryLocationName = (TextView)row.findViewById(R.id.lrlLocationName);
+            holder.textEntryLocationAddress = (TextView)row.findViewById(R.id.lrlLocationAddress);
+            holder.textEntryLocationCity = (TextView)row.findViewById(R.id.lrlLocationCity);
+            holder.textEntryLocationState = (TextView)row.findViewById(R.id.lrlLocationState);
+            holder.textEntryLocationZip = (TextView)row.findViewById(R.id.lrlLocationZip);
+            holder.textEntryLocationPhone = (TextView)row.findViewById(R.id.lrlLocationPhone);
 
             row.setTag(holder);
         } else {
@@ -46,7 +48,13 @@ public class CustomAdapterLocation extends ArrayAdapter<Location> {
 
         Location location = locations.get(position);
 
+        holder.textEntryLocationId.setText(location.getId());
         holder.textEntryLocationName.setText(location.getName());
+        holder.textEntryLocationAddress.setText(location.getAddress());
+        holder.textEntryLocationCity.setText(location.getCity());
+        holder.textEntryLocationState.setText(location.getState());
+        holder.textEntryLocationZip.setText(location.getZip());
+        holder.textEntryLocationPhone.setText(location.getPhone());
 /*
         Log.i(MainActivity.TAG, "CustomAdapterLocation - Location Name: " + location.getName() +
                 "Location " + "locationID: " + location.getId());
@@ -61,6 +69,7 @@ public class CustomAdapterLocation extends ArrayAdapter<Location> {
         TextView textEntryLocationCity;
         TextView textEntryLocationState;
         TextView textEntryLocationZip;
+        TextView textEntryLocationPhone;
     }
 
 }

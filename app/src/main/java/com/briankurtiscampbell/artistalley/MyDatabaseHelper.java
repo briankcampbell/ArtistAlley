@@ -10,9 +10,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-/**
- * Created by 17720488 on 7/25/2015.
- */
 public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "ArtAppDB";
@@ -56,7 +53,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             + LOCATION_PHONE + " TEXT"
             + ");";
     private static final String CREATE_ARTWORK_ITEMS_TABLE_NAME = "CREATE TABLE " + ARTWORK_ITEMS_TABLE_NAME + " ("
-            + ARTWORK_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + ARTWORK_ITEM_ID + " INTEGER PRIMARY KEY, "
             + ARTIST_ID + " INTEGER, "
             + ARTWORK_ITEM_NAME + " TEXT, "
             + ARTWORK_ITEM_DESCRIPTION + " TEXT, "
@@ -94,16 +91,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void addArtist(Artist artist){
         ContentValues artistValues = new ContentValues();
 
-        artistValues.put(LOCATION_NAME, artist.getName());
-        artistValues.put(LOCATION_ADDRESS, artist.getPhone());
-        artistValues.put(LOCATION_CITY, artist.getEmail());
-        artistValues.put(LOCATION_STATE, artist.getPassword());
+        artistValues.put(ARTIST_NAME, artist.getName());
+        artistValues.put(ARTIST_PHONE, artist.getPhone());
+        artistValues.put(ARTIST_EMAIL, artist.getEmail());
+        artistValues.put(ARTIST_PASSWORD, artist.getPassword());
         //Log.i(MainActivity.TAG, "MyDatabaseHelper: Artist Values = " + artistValues);
 
         //Inserting values into database
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(ARTISTS_TABLE_NAME, null, artistValues);
-        //db.close();
+        db.close();
 
         Log.i(MainActivity.TAG, "MyDatabaseHelper: Location " + artist.getId() + " " + artist.getName() + " inserted into the database");
     }
@@ -112,7 +109,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Artist> artists = new ArrayList<>();
 
         //Accessing and querying database.
-        String query = "SELECT * FROM " + LOCATIONS_TABLE_NAME + ";";
+        String query = "SELECT * FROM " + ARTISTS_TABLE_NAME + ";";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
@@ -134,26 +131,26 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         //Closing query and database out.
         cursor.close();
-        //db.close();
+        db.close();
 
         return artists;
     }
 
     public void editArtist(Artist artist){
-        ContentValues locationValues = new ContentValues();
+        ContentValues artistValues = new ContentValues();
 
-        locationValues.put(ARTIST_ID, artist.getId());
-        locationValues.put(ARTIST_NAME, artist.getName());
-        locationValues.put(ARTIST_PHONE, artist.getPhone());
-        locationValues.put(ARTIST_EMAIL, artist.getEmail());
-        locationValues.put(ARTIST_PASSWORD, artist.getPassword());
+        artistValues.put(ARTIST_ID, artist.getId());
+        artistValues.put(ARTIST_NAME, artist.getName());
+        artistValues.put(ARTIST_PHONE, artist.getPhone());
+        artistValues.put(ARTIST_EMAIL, artist.getEmail());
+        artistValues.put(ARTIST_PASSWORD, artist.getPassword());
 
-        Log.i(MainActivity.TAG, "MyDatabaseHelper: Location Values = " + locationValues);
+        Log.i(MainActivity.TAG, "MyDatabaseHelper: Location Values = " + artistValues);
 
         //Inserting values into database
         SQLiteDatabase db = this.getWritableDatabase();
-        db.replace(ARTISTS_TABLE_NAME, null, locationValues);
-        //db.close();
+        db.replace(ARTISTS_TABLE_NAME, null, artistValues);
+        db.close();
 
         Log.i(MainActivity.TAG, "MyDatabaseHelper: Location record replaced in the database");
 
@@ -172,20 +169,20 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     //locations table
     public void addLocation(Location location){
-        ContentValues itemValues = new ContentValues();
+        ContentValues LocationValues = new ContentValues();
 
-        itemValues.put(LOCATION_NAME, location.getName());
-        itemValues.put(LOCATION_ADDRESS, location.getAddress());
-        itemValues.put(LOCATION_CITY, location.getCity());
-        itemValues.put(LOCATION_STATE, location.getState());
-        itemValues.put(LOCATION_ZIP, location.getZip());
-        itemValues.put(LOCATION_PHONE, location.getPhone());
+        LocationValues.put(LOCATION_NAME, location.getName());
+        LocationValues.put(LOCATION_ADDRESS, location.getAddress());
+        LocationValues.put(LOCATION_CITY, location.getCity());
+        LocationValues.put(LOCATION_STATE, location.getState());
+        LocationValues.put(LOCATION_ZIP, location.getZip());
+        LocationValues.put(LOCATION_PHONE, location.getPhone());
         //Log.i(MainActivity.TAG, "MyDatabaseHelper: Item Values = " + itemValues);
 
         //Inserting values into database
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(LOCATIONS_TABLE_NAME, null, itemValues);
-        //db.close();
+        db.insert(LOCATIONS_TABLE_NAME, null, LocationValues);
+        db.close();
 
         Log.i(MainActivity.TAG, "MyDatabaseHelper: Location " + location.getId() + " " + location.getName() + " inserted into the database");
     }
@@ -218,7 +215,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         //Closing query and database out.
         cursor.close();
-        //db.close();
+        db.close();
 
         return locations;
     }
@@ -239,7 +236,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         //Inserting values into database
         SQLiteDatabase db = this.getWritableDatabase();
         db.replace(LOCATIONS_TABLE_NAME, null, locationValues);
-        //db.close();
+        db.close();
 
         Log.i(MainActivity.TAG, "MyDatabaseHelper: Location record replaced in the database");
     }
@@ -257,7 +254,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     //items table
     public void addItem(Item item){
         ContentValues itemValues = new ContentValues();
+        String artistId = String.valueOf(item.getArtist().getId());
+        String itemId = String.valueOf(item.getId());
+        String artworkItemId = artistId + itemId;
 
+        itemValues.put(ARTWORK_ITEM_ID, Integer.parseInt(artworkItemId));
         itemValues.put(ARTWORK_ITEM_NAME, item.getName());
         itemValues.put(ARTWORK_ITEM_DESCRIPTION, item.getDescription());
         itemValues.put(ARTWORK_ITEM_IMAGE, item.getImageId());
@@ -276,7 +277,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         //Inserting values into database
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(ARTWORK_ITEMS_TABLE_NAME, null, itemValues);
-        //db.close();
+        db.close();
 
         Log.i(MainActivity.TAG, "MyDatabaseHelper: Item " + item.getId() + " " + item.getName() + " inserted into the database");
     }
@@ -316,7 +317,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         //Closing query and database out.
         cursor.close();
-        //db.close();
+        db.close();
 
         return items;
     }
@@ -341,7 +342,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         //Inserting values into database
         SQLiteDatabase db = this.getWritableDatabase();
         db.replace(ARTWORK_ITEMS_TABLE_NAME, null, itemValues);
-        //db.close();
+        db.close();
 
         Log.i(MainActivity.TAG, "MyDatabaseHelper: Item record replaced in the database");
     }

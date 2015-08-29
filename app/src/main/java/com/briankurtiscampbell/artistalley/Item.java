@@ -5,11 +5,6 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-/**
- * Created by Biarre on 7/9/2015.
- */
-
-
 public class Item implements Parcelable {
     private int id;
     private String name;
@@ -36,7 +31,7 @@ public class Item implements Parcelable {
         this.artist = artist;
     }
 
-    public Item(int id, String name, String description, int imageId, int height, int width, double price, int count, Artist artist) {
+    public Item(int id, String name, String description, int imageId, int height, int width, double price, int count, int artistId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -45,7 +40,7 @@ public class Item implements Parcelable {
         this.width = width;
         this.price = price;
         this.count = count;
-        this.artist = artist;
+        this.artistId = artistId;
     }
 
     public int getId() {
